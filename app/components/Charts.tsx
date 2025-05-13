@@ -11,9 +11,7 @@ const DynamicChart = dynamic(() => import('react-apexcharts'), {
   loading: () => <div className="h-[350px] flex items-center justify-center">Loading chart...</div>
 })
 
-export default function Chart() {
-  const [stats, setStats] = useState({ users: 0, posts: 0, comments: 0 })
-
+const Charts = () => {
   const { data: users = [] } = useQuery<Array<{ id: number; name: string }>>({
     queryKey: ['users'],
     queryFn: async (): Promise<Array<{ id: number; name: string }>> => {
@@ -38,13 +36,11 @@ export default function Chart() {
     }
   })
 
-  useEffect(() => {
-    setStats({
-      users: users?.length || 0,
-      posts: posts?.length || 0,
-      comments: comments?.length || 0
-    })
-  }, [users, posts, comments])
+  const stats = {
+    users: users?.length || 0,
+    posts: posts?.length || 0,
+    comments: comments?.length || 0
+  };
 
   const chartOptions: ApexCharts.ApexOptions = {
     chart: {
@@ -71,9 +67,11 @@ export default function Chart() {
   ]
 
   return (
-    <div className="bg-white rounded-lg shadow-md p-6">
-      <h2 className="text-xl font-semibold mb-4">Data Statistics</h2>
+    <div className="p-6 bg-white rounded-lg shadow-md">
+      <h2 className="mb-4 text-xl font-semibold">Data Statistics</h2>
       <DynamicChart options={chartOptions} series={series} type="bar" height={350} />
     </div>
   )
 }
+
+export default Charts
