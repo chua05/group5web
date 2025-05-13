@@ -4,10 +4,10 @@ import axios from 'axios'
 import dynamic from 'next/dynamic'
 import { useEffect, useState } from 'react'
 
-const Map = dynamic(() => import('./../components/Map'), { 
+const Map = dynamic(() => import('../components/Map'), { 
   ssr: false,
   loading: () => (
-    <div className="h-64 w-full bg-gray-100 rounded-lg flex items-center justify-center">
+    <div className="flex items-center justify-center w-full h-64 bg-gray-100 rounded-lg">
       <p>Loading map...</p>
     </div>
   )
@@ -79,39 +79,37 @@ export default function UserProfile({ params }: { params: { id: string } }) {
   return (
     <div className="p-8">
       <div className="mb-8">
-        <h1 className="text-3xl font-bold mb-2">{user.name}</h1>
-        <p className="text-gray-600 mb-1">@{user.username}</p>
-        <p className="text-gray-600 mb-1">{user.email}</p>
-        <p className="text-gray-600 mb-1">{user.phone}</p>
-        <p className="text-gray-600 mb-4">{user.website}</p>
+        <h1 className="mb-2 text-3xl font-bold">{user.name}</h1>
+        <p className="mb-1 text-gray-600">@{user.username}</p>
+        <p className="mb-1 text-gray-600">{user.email}</p>
+        <p className="mb-1 text-gray-600">{user.phone}</p>
+        <p className="mb-4 text-gray-600">{user.website}</p>
 
         <div className="mb-6">
-          <h2 className="text-xl font-semibold mb-2">Address</h2>
+          <h2 className="mb-2 text-xl font-semibold">Address</h2>
           <p>{user.address.street}, {user.address.suite}</p>
           <p>{user.address.city}, {user.address.zipcode}</p>
           
-          <div className="mt-4 h-64 w-full">
-            <Map 
-              lat={parseFloat(user.address.geo.lat)} 
-              lng={parseFloat(user.address.geo.lng)} 
-            />
+          <div className="w-full h-64 mt-4">
+            <Map lat={parseFloat(user.address.geo.lat)} lng={parseFloat(user.address.geo.lng)} />
           </div>
         </div>
 
         <div>
-          <h2 className="text-xl font-semibold mb-2">Company</h2>
+          <h2 className="mb-2 text-xl font-semibold">Company</h2>
           <p className="font-medium">{user.company.name}</p>
-          <p className="text-gray-600 italic">"{user.company.catchPhrase}"</p>
+          <p className="italic text-gray-600">"{user.company.catchPhrase}"</p>
           <p className="text-gray-600">{user.company.bs}</p>
         </div>
       </div>
+          
 
       <div>
-        <h2 className="text-2xl font-bold mb-4">Posts</h2>
+        <h2 className="mb-4 text-2xl font-bold">Posts</h2>
         <div className="space-y-4">
           {posts.map(post => (
             <div key={post.id} className="p-4 border rounded-lg">
-              <h3 className="text-lg font-semibold mb-2">{post.title}</h3>
+              <h3 className="mb-2 text-lg font-semibold">{post.title}</h3>
               <p className="text-gray-700">{post.body}</p>
               <a 
                 href={`/posts/${post.id}`} 

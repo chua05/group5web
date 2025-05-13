@@ -4,7 +4,7 @@ import { useQuery } from '@tanstack/react-query'
 import axios from 'axios'
 import Link from 'next/link'
 import { useParams } from 'next/navigation'
-import MapBox from '../components/Map'
+import MapBox from './Map'
 import PostList from './PostList'
 
 type User = {
